@@ -43,8 +43,10 @@ export class App implements OnInit {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         const url = event.urlAfterRedirects || event.url;
-        // On home (/) with dark spotlight hero, and /beyond-the-frame, navbar is dark
-        this.isDarkNav = url === '/' || url === '' || url.startsWith('/beyond-the-frame');
+        // On home (/) with warm ivory paper hero, navbar is light theme; on /beyond-the-frame it is dark
+        this.isDarkNav = url.startsWith('/beyond-the-frame');
+        // PREVIOUS SPOTLIGHT HERO (Uncomment if restoring dark spotlight hero):
+        // this.isDarkNav = url === '/' || url === '' || url.startsWith('/beyond-the-frame');
         // Footer styling
         this.isDarkFooter = url.includes('/contact') || url.startsWith('/beyond-the-frame');
         window.scrollTo({ top: 0, behavior: 'instant' });

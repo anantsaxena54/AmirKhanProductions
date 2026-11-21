@@ -5,25 +5,33 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AKP_FILMS, AKP_ARTICLES } from '../../data/films.data';
 import { Film, JournalArticle } from '../../models/film.model';
 import { SpotlightHeroComponent } from '../spotlight-hero/spotlight-hero.component';
+import { WavingHeroComponent } from '../waving-hero/waving-hero.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, SpotlightHeroComponent],
+  imports: [CommonModule, RouterModule, WavingHeroComponent],
   template: `
     <!-- =========================================================================
-         01 — SPOTLIGHT FILM-TITLE WALL HERO (CURRENT ACTIVE HERO)
-         Spec: AKP_SPOTLIGHT_HERO_AGENT_SPEC.md
-         Features interactive CSS mask spotlight, idle autopilot Lissajous,
-         dynamic title active state, hit testing, tooltip, and keyboard focus.
+         01 — WAVING POSTER LANDING HERO (CURRENT ACTIVE HERO)
+         Red-on-paper poster landing with letter reel slot motion, interactive
+         waving character, dice rolls, letter bursts, and signature badge.
     ========================================================================= -->
-    <app-spotlight-hero></app-spotlight-hero>
+    <app-waving-hero></app-waving-hero>
 
     <!-- =========================================================================
-         PREVIOUS HERO ALTERNATIVES (PRESERVED FOR QUICK TOGGLE / RESTORATION):
+         HERO ARCHIVE & STASH (PRESERVED FOR QUICK TOGGLE / RESTORATION):
 
+         STASH: Spotlight Film-Title Wall Hero
+         Spec: AKP_SPOTLIGHT_HERO_AGENT_SPEC.md
+         To activate: uncomment <app-spotlight-hero> below and comment out <app-waving-hero>
+    =========================================================================
+    <app-spotlight-hero></app-spotlight-hero>
+    ========================================================================= -->
+
+    <!-- =========================================================================
          VARIANT A: 35MM CINEMA PROJECTOR HERO (Dark Theme with Light Cone & Beam)
-         To activate: uncomment the section below and comment out <app-spotlight-hero>
+         To activate: uncomment the section below and comment out <app-waving-hero>
     =========================================================================
     <section 
       class="hero hero-v2 projector-hero" 
