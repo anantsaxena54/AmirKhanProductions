@@ -147,17 +147,76 @@ function rowWidth(str: string): number {
   return t
 }
 
-function layoutPoster(left: string[], giant: string, right: string[], compact = false, showCharacter = false) {
-  // When character is hidden, letters sit next to each other with standard letter gap.
-  const margin = compact ? 30 : MARGIN
+function layoutPoster(
+  left: string[],
+  giant: string,
+  right: string[],
+  compact = false,
+  showCharacter = false,
+  customLines?: string[]
+) {
+  const margin = compact ? 50 : 120
   const charGap = showCharacter ? (compact ? 390 : CHAR_GAP) : LGAP
   const charScale = compact ? 0.84 : 1
+  const cells: Cell[] = []
+
+  if (customLines && customLines.length > 0) {
+    const rawLines = customLines.map(cleanRow).filter(Boolean)
+    const nRows = rawLines.length
+    const is3 = nRows >= 3
+    const lh = is3 ? (compact ? 130 : 145) : (compact ? 175 : 210)
+    const lw = is3 ? (compact ? 95 : 110) : (compact ? 80 : 95)
+    const ls = is3 ? 21 : 19
+    const lgap = is3 ? 28 : 24
+    const rowGap = is3 ? (compact ? 20 : 26) : (compact ? 24 : 30)
+    const top = is3 ? (compact ? 110 : 115) : (compact ? 115 : 120)
+
+    const calcRowWidth = (str: string) => {
+      let t = 0
+      ;[...str].forEach((ch, i) => {
+        t += glyphWidth(ch, lw, ls) + (i ? lgap : 0)
+      })
+      return t
+    }
+
+    const rowWidths = rawLines.map(calcRowWidth)
+    const maxRowW = Math.max(...rowWidths)
+
+    rawLines.forEach((rowStr, rIdx) => {
+      const rw = rowWidths[rIdx]
+      let x = margin + (maxRowW - rw) / 2
+      const y = top + rIdx * (lh + rowGap)
+      for (const ch of rowStr) {
+        const w = glyphWidth(ch, lw, ls)
+        if (ch !== " ") {
+          cells.push({ ch, x, y, w, h: lh, s: ls, row: rIdx, giant: false })
+        }
+        x += w + lgap
+      }
+    })
+
+    const width = maxRowW + margin * 2
+    const height = 700
+    const bottom = top + nRows * lh + (nRows - 1) * rowGap
+
+    return {
+      cells,
+      width,
+      height,
+      margin,
+      charScale,
+      gapStart: width / 2,
+      charX: width / 2,
+      bottom,
+    }
+  }
+
+  // When character is hidden, letters sit next to each other with standard letter gap.
   const l = [cleanRow(left[0] ?? ""), cleanRow(left[1] ?? "")]
   const r = [cleanRow(right[0] ?? ""), cleanRow(right[1] ?? "")]
   const g = cleanRow(giant).replace(/ /g, "").slice(0, 1) || "O"
   const lw = Math.max(rowWidth(l[0]), rowWidth(l[1]))
   const rw = Math.max(rowWidth(r[0]), rowWidth(r[1]))
-  const cells: Cell[] = []
   const place = (str: string, x0: number, row: number) => {
     let x = x0
     for (const ch of str) {
@@ -184,7 +243,7 @@ const hash = (n: number) => {
   return x - Math.floor(x)
 }
 const LABEL = 30 // label font size, poster units
-const labelWidth = (s: string) => s.length * LABEL * 0.72
+const labelWidth = (s: string) => s.length * LABEL * 0.78
 
 // Intro timeline, ms. The CSS below carries the same beats.
 const SCRAMBLE_AT = 2650
@@ -233,6 +292,8 @@ export type WavingPortfolioLandingProps = {
   year?: string
   /** Bottom labels, left and right. */
   roles?: [string, string]
+  /** Headline lines for the poster (e.g. ["YOU LOVE", "A STORY", "MAKE IT"]). */
+  lines?: string[]
   /** Letters left of the giant letter, top row and bottom row. */
   lettersLeft?: [string, string]
   /** The one tall letter both rows share. */
@@ -262,10 +323,11 @@ export default function WavingPortfolioLanding({
   name = "Aamir Khan Productions",
   year = "Est. 1999",
   roles = ["Cinema & Stories", "Independent Cinema"],
+  lines = ["YOU LOVE", "A STORY", "MAKE IT"],
   lettersLeft = ["P", "F"],
   giantLetter = "O",
   lettersRight = ["RT", "LIO"],
-  title = "Aamir Khan Productions — Stories that stay with us",
+  title = "Aamir Khan Productions — You love a story, make it.",
   signature = "AAMIR/KHAN",
   greeting = "Namaste!",
   accent = "#E5262C",
@@ -350,8 +412,8 @@ export default function WavingPortfolioLanding({
   }, [run, playing, wave, showCharacter])
 
   const L = React.useMemo(
-    () => layoutPoster(lettersLeft, giantLetter, lettersRight, compact, showCharacter),
-    [lettersLeft.join("|"), giantLetter, lettersRight.join("|"), compact, showCharacter],
+    () => layoutPoster(lettersLeft, giantLetter, lettersRight, compact, showCharacter, lines),
+    [lettersLeft.join("|"), giantLetter, lettersRight.join("|"), compact, showCharacter, lines?.join("|")],
   )
   const letters = L.cells.map((c) => c.ch).join("") || "ABC"
 
@@ -474,10 +536,11 @@ export default function WavingPortfolioLanding({
   }
 
   const stage = !intro ? "off" : ready ? "done" : "on"
-  const nameEnd = L.margin + labelWidth(nameU) + 26
-  const yearStart = L.width - L.margin - labelWidth(yearU) - 26
-  const roleLEnd = L.margin + labelWidth(roleL) + 26
-  const roleRStart = L.width - L.margin - labelWidth(roleR) - 26
+  const pad = 36
+  const nameEnd = L.margin + labelWidth(nameU) + pad
+  const yearStart = L.width - L.margin - labelWidth(yearU) - pad
+  const roleLEnd = L.margin + labelWidth(roleL) + pad
+  const roleRStart = L.width - L.margin - labelWidth(roleR) - pad
   const bubbleW = greeting.length * 19 + 48
   const k = L.charScale
   const charLeft = L.charX - 205 * k
