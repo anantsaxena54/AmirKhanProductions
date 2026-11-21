@@ -1,1 +1,217 @@
-/* You can add global styles to this file, and also import other style files */
+/* AKP — Aamir Khan Productions Design System */
+:root {
+  --paper: #FAF8F5;
+  --paper-card: #FFFFFF;
+  --ink: #10161B;
+  --ink-secondary: #555B5C;
+  --ink-muted: #6E726E;
+  --ink-light: #9B9E9B;
+  --line: #E4E0DA;
+  --line-light: #F0ECE6;
+  --red: #BB4941;
+  --red-hover: #9E3730;
+  --amber: #C5A845;
+  --amber-dark: #BF6D15;
+  --amber-glow: rgba(197, 168, 69, 0.22);
+  
+  /* Hero dark tokens */
+  --hero-bg: #08090A;
+  --hero-surface: #0E1216;
+  --hero-ivory: #F3F1EA;
+  --hero-muted: #A8A6A0;
+  --hero-line: rgba(243, 241, 234, 0.14);
+  
+  /* Typography */
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Onest', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  
+  /* Layout */
+  --gutter: clamp(24px, 5.5vw, 96px);
+  --header-height: 96px;
+  --max-content: 1400px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  background-color: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  background: var(--red);
+  color: #FFFFFF;
+}
+
+/* Accessibility Focus */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+/* Typography Utilities */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background-color: var(--red);
+  flex-shrink: 0;
+}
+
+.eyebrow-hero {
+  color: var(--hero-muted);
+}
+
+.eyebrow-hero::before {
+  background-color: var(--red);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: inherit;
+  line-height: 1.1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Interactive Link with Arrow */
+.akp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--red);
+  padding-bottom: 8px;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.akp-link:hover {
+  gap: 24px;
+  color: var(--red);
+}
+
+.akp-link .arrow {
+  font-size: 18px;
+  transition: transform 0.25s ease;
+}
+
+.akp-link:hover .arrow {
+  transform: translate(3px, -3px);
+}
+
+/* Rounded CTA Pill */
+.cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 28px;
+  background: var(--ink);
+  color: #FFFFFF;
+  border-radius: 40px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.cta-pill:hover {
+  background: var(--red);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(187, 73, 65, 0.25);
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  background: var(--red);
+  color: #FFFFFF;
+  padding: 12px 20px;
+  z-index: 1000;
+  font-weight: 600;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 20px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

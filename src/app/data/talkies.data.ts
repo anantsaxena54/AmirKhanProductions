@@ -1,0 +1,131 @@
+import { TalkiesVideo } from '../models/film.model';
+
+export const AKP_TALKIES_VIDEOS: TalkiesVideo[] = [
+  {
+    id: 'talkies-welcome',
+    youtubeId: 'iIUCuQ3V96U',
+    title: 'Welcome to Aamir Khan Talkies! | Channel Trailer',
+    description: 'Step inside the conversations, craft and experiences behind the films. Discover the world of filmmaking with Aamir Khan Talkies.',
+    category: 'Special Features',
+    thumbnailUrl: 'assets/media/talkies/iIUCuQ3V96U.jpg',
+    duration: '02:15',
+    publishedAt: 'Official Trailer',
+    featured: true,
+    sortOrder: 1
+  },
+  {
+    id: 'talkies-tzp-commentary',
+    youtubeId: 'QW6Kb-2hBZc',
+    title: 'Aamir’s Director Commentary — The Dyslexia Scene',
+    description: 'Aamir Khan breaks down the seminal dyslexia revelation sequence, detailing the visual framing, silence, and emotional weight of Ishaan\'s struggle.',
+    category: 'Director\'s Commentary',
+    relatedFilmSlug: 'taare-zameen-par',
+    relatedFilmTitle: 'Taare Zameen Par',
+    thumbnailUrl: 'assets/media/talkies/QW6Kb-2hBZc.jpg',
+    duration: '18:42',
+    publishedAt: 'Taare Zameen Par Archive',
+    featured: true,
+    sortOrder: 2
+  },
+  {
+    id: 'talkies-lagaan-tableread',
+    youtubeId: 'tEx-6DtUbEo',
+    title: '25 Years Later… Sarat Manzoor Hai! | Table Read | EP01',
+    description: 'The original cast and crew reunite after two and a half decades for an emotional table read of the historic cricket match wager that captivated the world.',
+    category: 'Special Features',
+    relatedFilmSlug: 'lagaan',
+    relatedFilmTitle: 'Lagaan',
+    thumbnailUrl: 'assets/media/talkies/tEx-6DtUbEo.jpg',
+    duration: '32:10',
+    publishedAt: '25 Year Retrospective',
+    featured: true,
+    sortOrder: 3
+  },
+  {
+    id: 'talkies-szp-bts',
+    youtubeId: '8lLaUFAEpl8',
+    title: 'Shah Rukh Surprises The Sitaare!',
+    description: 'A heartwarming candid moment as Shah Rukh Khan makes a surprise visit to the set of Sitaare Zameen Par, spending time with the young cast and crew.',
+    category: 'Behind the Scenes',
+    relatedFilmSlug: 'sitaare-zameen-par',
+    relatedFilmTitle: 'Sitaare Zameen Par',
+    thumbnailUrl: 'assets/media/talkies/8lLaUFAEpl8.jpg',
+    duration: '08:15',
+    publishedAt: 'Sitaare Zameen Par On-Set',
+    sortOrder: 4
+  },
+  {
+    id: 'talkies-ll-manohar',
+    youtubeId: 'ndB5zfR4cxM',
+    title: 'Inspector Manohar Had the Perfect Reply! | Ravi Kishan',
+    description: 'Ravi Kishan and Kiran Rao discuss character nuances, the humor of small-town police dynamics, and how Inspector Manohar became an unforgettable presence.',
+    category: 'Conversations',
+    relatedFilmSlug: 'laapataa-ladies',
+    relatedFilmTitle: 'Laapataa Ladies',
+    thumbnailUrl: 'assets/media/talkies/ndB5zfR4cxM.jpg',
+    duration: '14:50',
+    publishedAt: 'Laapataa Ladies Conversations',
+    sortOrder: 5
+  },
+  {
+    id: 'talkies-ek-din-bts',
+    youtubeId: 'FWNTQISkywk',
+    title: 'Ek Din with Sai Pallavi! | Behind the Scenes',
+    description: 'An intimate on-set chronicle capturing rehearsals, preparation, and creative collaboration between the director and Sai Pallavi.',
+    category: 'Behind the Scenes',
+    thumbnailUrl: 'assets/media/talkies/FWNTQISkywk.jpg',
+    duration: '11:35',
+    publishedAt: 'Production Chronicle',
+    sortOrder: 6
+  },
+  {
+    id: 'talkies-tzp-staffroom',
+    youtubeId: 'hsjcDMlIOXY',
+    title: 'The Staffroom Wasn\'t Ready for Nikumbh Sir!',
+    description: 'A deep dive into crafting Ram Shankar Nikumbh\'s unorthodox teaching philosophy and the confrontation scene with rigid conventional educators.',
+    category: 'Behind the Scenes',
+    relatedFilmSlug: 'taare-zameen-par',
+    relatedFilmTitle: 'Taare Zameen Par',
+    thumbnailUrl: 'assets/media/talkies/hsjcDMlIOXY.jpg',
+    duration: '12:05',
+    publishedAt: 'Taare Zameen Par Archive',
+    sortOrder: 7
+  },
+  {
+    id: 'talkies-lsc-secrets',
+    youtubeId: '30WTKf6TVG4',
+    title: 'Laal Singh Chaddha Was Hiding THIS All Along! | Dekha Kya?',
+    description: 'Exploring the intricate visual storytelling, hidden cultural motifs, and production details woven across decades of Indian history in the film.',
+    category: 'Special Features',
+    relatedFilmSlug: 'laal-singh-chaddha',
+    relatedFilmTitle: 'Laal Singh Chaddha',
+    thumbnailUrl: 'assets/media/talkies/30WTKf6TVG4.jpg',
+    duration: '15:20',
+    publishedAt: 'Visual Breakdown',
+    sortOrder: 8
+  },
+  {
+    id: 'talkies-aparna-convo',
+    youtubeId: '8wq7NYv-pJM',
+    title: 'One Friday At A Time: Making Room for Art and Conversation',
+    description: 'A thoughtful industry roundtable on nurturing authentic storytelling, resisting formulaic production pressures, and honoring cinema as art.',
+    category: 'Conversations',
+    thumbnailUrl: 'assets/media/talkies/8wq7NYv-pJM.jpg',
+    duration: '28:40',
+    publishedAt: 'Cinema Roundtables',
+    sortOrder: 9
+  },
+  {
+    id: 'talkies-secret-superstar',
+    youtubeId: 'qqIBhvavAMU',
+    title: 'When “Cuteness” Beats Talent! | Secret Superstar',
+    description: 'Aamir Khan and Monali Thakur reflect on Shakti Kumaarr\'s hilarious studio antics, music direction choices, and Insia\'s transformative voice.',
+    category: 'Conversations',
+    relatedFilmSlug: 'secret-superstar',
+    relatedFilmTitle: 'Secret Superstar',
+    thumbnailUrl: 'assets/media/talkies/qqIBhvavAMU.jpg',
+    duration: '09:45',
+    publishedAt: 'Secret Superstar Archive',
+    sortOrder: 10
+  }
+];
