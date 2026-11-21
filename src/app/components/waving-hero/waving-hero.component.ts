@@ -50,6 +50,7 @@ export class WavingHeroComponent implements AfterViewInit, OnDestroy {
           paper: '#F7F3ED',
           ink: '#141414',
           intro: true,
+          showCharacter: false,
           height: '100%'
         })
       );

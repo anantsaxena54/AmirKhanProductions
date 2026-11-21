@@ -147,11 +147,10 @@ function rowWidth(str: string): number {
   return t
 }
 
-function layoutPoster(left: string[], giant: string, right: string[], compact = false) {
-  // Tall containers get a tighter gap and a smaller character, so the poster
-  // can fill a phone's width instead of floating in the middle.
+function layoutPoster(left: string[], giant: string, right: string[], compact = false, showCharacter = false) {
+  // When character is hidden, letters sit next to each other with standard letter gap.
   const margin = compact ? 30 : MARGIN
-  const charGap = compact ? 390 : CHAR_GAP
+  const charGap = showCharacter ? (compact ? 390 : CHAR_GAP) : LGAP
   const charScale = compact ? 0.84 : 1
   const l = [cleanRow(left[0] ?? ""), cleanRow(left[1] ?? "")]
   const r = [cleanRow(right[0] ?? ""), cleanRow(right[1] ?? "")]
@@ -251,6 +250,8 @@ export type WavingPortfolioLandingProps = {
   ink?: string
   /** Play the cinematic intro on mount. */
   intro?: boolean
+  /** Whether to render the hand-inked character rising and waving. Defaults to false. */
+  showCharacter?: boolean
   height?: string
   className?: string
 }
@@ -271,6 +272,7 @@ export default function WavingPortfolioLanding({
   paper = "#F7F3ED",
   ink = "#141414",
   intro = true,
+  showCharacter = false,
   height = "100svh",
   className = "",
 }: WavingPortfolioLandingProps) {
@@ -339,17 +341,17 @@ export default function WavingPortfolioLanding({
       return
     }
     setReady(false)
-    const a = later(wave, WAVE_AT)
-    const b = later(() => setReady(true), READY_AT)
+    const a = showCharacter ? later(wave, WAVE_AT) : undefined
+    const b = later(() => setReady(true), showCharacter ? READY_AT : 3200)
     return () => {
-      clearTimeout(a)
+      if (a) clearTimeout(a)
       clearTimeout(b)
     }
-  }, [run, playing, wave])
+  }, [run, playing, wave, showCharacter])
 
   const L = React.useMemo(
-    () => layoutPoster(lettersLeft, giantLetter, lettersRight, compact),
-    [lettersLeft.join("|"), giantLetter, lettersRight.join("|"), compact],
+    () => layoutPoster(lettersLeft, giantLetter, lettersRight, compact, showCharacter),
+    [lettersLeft.join("|"), giantLetter, lettersRight.join("|"), compact, showCharacter],
   )
   const letters = L.cells.map((c) => c.ch).join("") || "ABC"
 
@@ -522,40 +524,44 @@ export default function WavingPortfolioLanding({
             ))}
           </g>
 
-          <g className="wpl-par-char">
-            <svg x={charLeft} y={605 - 600 * k} width={460 * k} height={600 * k} viewBox="0 0 460 600" overflow="hidden">
-              <g
-                className={"wpl-char" + (waving ? " is-waving" : "")}
-                role="button"
-                tabIndex={0}
-                aria-label="Wave hello"
-                onPointerEnter={(e) => {
-                  if (ready && e.pointerType !== "touch") wave()
-                }}
-                onClick={wave}
-                onKeyDown={onCharKey}
-              >
-                <Character ink={ink} paper={paper} shirtId={"wpl-" + uid + "-shirt"} headRef={headRef} />
+          {showCharacter && (
+            <>
+              <g className="wpl-par-char">
+                <svg x={charLeft} y={605 - 600 * k} width={460 * k} height={600 * k} viewBox="0 0 460 600" overflow="hidden">
+                  <g
+                    className={"wpl-char" + (waving ? " is-waving" : "")}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Wave hello"
+                    onPointerEnter={(e) => {
+                      if (ready && e.pointerType !== "touch") wave()
+                    }}
+                    onClick={wave}
+                    onKeyDown={onCharKey}
+                  >
+                    <Character ink={ink} paper={paper} shirtId={"wpl-" + uid + "-shirt"} headRef={headRef} />
+                  </g>
+                </svg>
               </g>
-            </svg>
-          </g>
 
-          {waving && (
-            <g className="wpl-bubble" aria-hidden="true">
-              <path
-                d={
-                  "M " + (charLeft + 372 * k) + " 20 h " + bubbleW + " v 56 h " + -(bubbleW - 34) +
-                  " l -30 22 l 6 -22 h -10 Z"
-                }
-                fill={paper}
-                stroke={accent}
-                strokeWidth={4}
-                strokeLinejoin="round"
-              />
-              <text className="wpl-label wpl-bubble-text" x={charLeft + 372 * k + bubbleW / 2} y={58} textAnchor="middle">
-                {greeting.toUpperCase()}
-              </text>
-            </g>
+              {waving && (
+                <g className="wpl-bubble" aria-hidden="true">
+                  <path
+                    d={
+                      "M " + (charLeft + 372 * k) + " 20 h " + bubbleW + " v 56 h " + -(bubbleW - 34) +
+                      " l -30 22 l 6 -22 h -10 Z"
+                    }
+                    fill={paper}
+                    stroke={accent}
+                    strokeWidth={4}
+                    strokeLinejoin="round"
+                  />
+                  <text className="wpl-label wpl-bubble-text" x={charLeft + 372 * k + bubbleW / 2} y={58} textAnchor="middle">
+                    {greeting.toUpperCase()}
+                  </text>
+                </g>
+              )}
+            </>
           )}
         </svg>
 
